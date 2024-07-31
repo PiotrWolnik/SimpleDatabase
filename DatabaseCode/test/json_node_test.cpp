@@ -2,7 +2,7 @@
 #include "json_node.hpp"
 
 TEST(UsersDataTest, constructorTest) {
-    UsersData users_data{"Kangaroo", 40, GameHeroes::Hero::WIZARD, 10};
+    UsersData users_data{"Kangaroo", 40, "Wizard", 10};
 
     EXPECT_EQ(users_data._data["users_name"].template get<std::string>(), "Kangaroo");
     EXPECT_EQ(users_data._data["age"].template get<int>(), 40);
@@ -28,7 +28,7 @@ TEST(UsersData, jsonConstructorTest) {
 }
 
 TEST(UsersDataTest, copyConstructorTest) {
-    UsersData users_data{UsersData{"Dragon", 30, GameHeroes::Hero::WARRIOR, 25}};
+    UsersData users_data{UsersData{"Dragon", 30, "Warrior", 25}};
 
     EXPECT_EQ(users_data._data["users_name"].template get<std::string>(), "Dragon");
     EXPECT_EQ(users_data._data["age"].template get<int>(), 30);
@@ -37,8 +37,8 @@ TEST(UsersDataTest, copyConstructorTest) {
 }
 
 TEST(UsersDataTest, copyAssignementOperatorTest) {
-    UsersData users_data_one{"DJ", 20, GameHeroes::Hero::SHAMAN, 100};
-    UsersData users_data_two{"Kangaroo", 40, GameHeroes::Hero::WIZARD, 10};
+    UsersData users_data_one{"DJ", 20, "Shaman", 100};
+    UsersData users_data_two{"Kangaroo", 40, "Wizard", 10};
     users_data_two = users_data_one;
 
     EXPECT_EQ(users_data_two._data["users_name"].template get<std::string>(), "DJ");

@@ -1,10 +1,10 @@
 #include "json_node.hpp"
 
-UsersData::UsersData(std::string users_name, int age, GameHeroes::Hero player_type, int level)
+UsersData::UsersData(std::string users_name, int age, std::string player_type, int level)
 {
     _data["users_name"] = users_name;
     _data["age"] = age;
-    _data["player_type"] = GameHeroes::HeroType[player_type];
+    _data["player_type"] = player_type;
     _data["level"] = level;
 }
 
