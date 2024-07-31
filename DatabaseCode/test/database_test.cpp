@@ -11,6 +11,9 @@ TEST(DatabaseTests, createEmptyDatabaseTest) {
     ASSERT_TRUE(fs::is_directory(fs::status(db.getDirectory())));
     const auto& p = fs::directory_iterator(db.getDirectory());
     ASSERT_TRUE(p == fs::end(p));
+
+    db.destroy();
+    ASSERT_TRUE(!fs::exists(fs::status(db.getDirectory())));
 }
 
 TEST(DatabaseTests, keyValueMethodsTest) {
@@ -27,4 +30,6 @@ TEST(DatabaseTests, keyValueMethodsTest) {
     EXPECT_EQ(value_retrieved._data["age"].template get<int>(), 45);
     EXPECT_EQ(value_retrieved._data["player_type"].template get<std::string>(), "Wizard");
     EXPECT_EQ(value_retrieved._data["level"].template get<int>(), 200);
+
+    db.destroy();
 }

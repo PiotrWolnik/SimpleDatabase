@@ -37,3 +37,8 @@ UsersData Database::getKeyValue(std::string key) {
     ifs >> obj;
     return UsersData{obj};
 }
+
+void Database::destroy() {
+    if (fs::exists(_fullpath))
+        fs::remove_all(_fullpath);
+}

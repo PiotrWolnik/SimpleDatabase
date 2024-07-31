@@ -18,7 +18,8 @@ public:
     UsersData getKeyValue(std::string key);
 
     static Database createEmpty(std::string db_name);
-
+    void destroy();
+    
 private:
     std::string _name;
     std::string _fullpath;
