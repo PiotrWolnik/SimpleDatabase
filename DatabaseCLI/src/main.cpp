@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     CLI11_PARSE(app, argc, argv);
 
     if (app.count("-c") > 0 || app.count("--create") > 0) {
-        Database db(GroundUpDB::createEmpty(db_name));
+        std::unique_ptr<Database::IDatabase> db(Database::GroundUpDB::createEmpty(db_name));
         std::cout << "Database: " << db_name << " was created!\n";
     }
     
@@ -34,8 +34,8 @@ int main(int argc, char **argv) {
             std::cout << "You must provide name of the database you want to destroy!";
             return EXIT_FAILURE;
         }
-        Database db(GroundUpDB::loadDB(db_name));
-        db.destroy();
+        std::unique_ptr<Database::IDatabase> db(Database::GroundUpDB::loadDB(db_name));
+        db->destroy();
         std::cout << "Database: " << db_name << " was destroyed\n";
     }
 
@@ -44,9 +44,9 @@ int main(int argc, char **argv) {
             std::cout << "You must provide name of the database to which you want to add key-value!";
             return EXIT_FAILURE;
         }
-        Database db(GroundUpDB::loadDB(db_name));
+        std::unique_ptr<Database::IDatabase> db(Database::GroundUpDB::loadDB(db_name));
 
-        db.setKeyValue(key_val_parsed.first, key_val_parsed.second);
+        db->setKeyValue(key_val_parsed.first, key_val_parsed.second);
         std::cout << "Key and value were added to " << db_name << " database!\n";
     }
 
@@ -55,8 +55,8 @@ int main(int argc, char **argv) {
             std::cout << "You must provide name of the database from which you want to retrieve key-value!";
             return EXIT_FAILURE;
         }
-        Database db(GroundUpDB::loadDB(db_name));
-        auto user = db.getKeyValue(key);
+        std::unique_ptr<Database::IDatabase> db(Database::GroundUpDB::loadDB(db_name));
+        auto user = db->getKeyValue(key);
         std::cout << user._data << std::endl;
         std::cout << "Operation of retrieving key was successfull!\n";
     }

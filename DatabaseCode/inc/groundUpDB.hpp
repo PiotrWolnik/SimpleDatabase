@@ -1,11 +1,13 @@
 #pragma once
 #include "database.hpp"
 
-class GroundUpDB {
-public:
-    GroundUpDB();
+namespace Database {
+    class GroundUpDB {
+    public:
+        GroundUpDB();
 
-    static Database createEmpty(std::string& db_name);
+        static const std::unique_ptr<IDatabase> createEmpty(std::string& db_name);
 
-    static Database loadDB(std::string& db_name);
-};
+        static const std::unique_ptr<IDatabase> loadDB(std::string& db_name);
+    };   
+}

@@ -7,23 +7,21 @@
 
 namespace fs = std::filesystem;
 
-class Database {
-public:
-    Database(std::string& db_name, std::string& fullpath);
+namespace Database {
+    class IDatabase {
+    public:
+        IDatabase() = default;
+        virtual ~IDatabase() = default;
 
-    std::string getDirectory();
+        virtual std::string getDirectory() = 0;
 
-    // Key value methods
-    void setKeyValue(std::string key, std::tuple<std::string, int, std::string, int> user_info);  
-    UsersData getKeyValue(std::string key);
+        // Key value methods
+        virtual void setKeyValue(std::string key, std::tuple<std::string, int, std::string, int> user_info) = 0;  
+        virtual UsersData getKeyValue(std::string key) = 0;
 
-    void destroy();
-    
-    static Database createEmpty(std::string& db_name);
-    static Database loadDB(std::string& db_name);
-
-private:
-    std::string _name;
-    std::string _fullpath;
-    static std::string _basedir;
-};
+        virtual void destroy() = 0;
+        
+        static IDatabase& createEmpty(std::string& db_name);
+        static IDatabase& loadDB(std::string& db_name);
+    };
+}
