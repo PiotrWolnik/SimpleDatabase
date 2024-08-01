@@ -1,30 +1,28 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
+#include <set>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::ordered_json;
 
 namespace GameHeroes {
-    enum class Hero {
-        KNIGHT,
-        DRUID,
-        HUNTER,
-        MAGE,
-        WIZARD,
-        SHAMAN,
-        WARRIOR
+    static std::set<std::string> HeroType {
+        "Knight",
+        "Druid",
+        "Hunter",
+        "Mage",
+        "Wizard",
+        "Shaman",
+        "Warrior"
     };
 
-    static std::unordered_map<std::string, Hero> HeroType {
-        {"Knight", Hero::KNIGHT},
-        {"Druid", Hero::DRUID},
-        {"Hunter", Hero::HUNTER},
-        {"Mage", Hero::MAGE},
-        {"Wizard", Hero::WIZARD},
-        {"Shaman", Hero::SHAMAN},
-        {"Warrior", Hero::WARRIOR}
+    struct CheckIfHeroExists {
+        bool operator()(std::string hero_type) {
+            if (auto hero_iter = std::find(HeroType.begin(), HeroType.end(), hero_type); hero_iter != HeroType.end())
+                return true;
+            return false;
+        }
     };
 }
 

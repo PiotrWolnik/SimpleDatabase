@@ -10,6 +10,10 @@ TEST(UsersDataTest, constructorTest) {
     EXPECT_EQ(users_data._data["level"].template get<int>(), 10);
 }
 
+TEST(UsersDataTest, constructorInvalidHeroTypeTest) {
+    ASSERT_THROW(UsersData user_data("Rex", 35, "Warlord", 125), std::runtime_error);
+}
+
 TEST(UsersData, jsonConstructorTest) {
     json test_ex =
         {

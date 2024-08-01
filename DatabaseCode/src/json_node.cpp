@@ -4,7 +4,10 @@ UsersData::UsersData(std::string users_name, int age, std::string player_type, i
 {
     _data["users_name"] = users_name;
     _data["age"] = age;
-    _data["player_type"] = player_type;
+    if (GameHeroes::CheckIfHeroExists()(player_type))
+        _data["player_type"] = player_type;
+    else
+        throw std::runtime_error("Invalid player type!\n");
     _data["level"] = level;
 }
 
